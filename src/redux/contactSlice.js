@@ -6,7 +6,6 @@ import contacts from '../components/Data/contacts.json';
 
 const contactsInitialState = {
   contactsList: contacts,
-  filter: '',
 };
 
 export const contactSlice = createSlice({
@@ -27,9 +26,7 @@ export const contactSlice = createSlice({
         };
       },
     },
-    filterContacts(state, action) {
-      state.filter = action.payload;
-    },
+
     deleteContacts(state, action) {
       state.contactsList = state.contactsList.filter(
         contact => contact.id !== action.payload
@@ -41,11 +38,10 @@ export const contactSlice = createSlice({
 const persistConfig = {
   key: 'contacts',
   storage,
-  // whitelist: ['contactsList'],
+  whitelist: ['contactsList'],
 };
 
-export const { addContact, filterContacts, deleteContacts } =
-  contactSlice.actions;
+export const { addContact, deleteContacts } = contactSlice.actions;
 const contactSliceReducer = contactSlice.reducer;
 
 export const persistedReducer = persistReducer(
